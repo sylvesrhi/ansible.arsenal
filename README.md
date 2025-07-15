@@ -23,7 +23,7 @@ Each playbook is modular and comes with default variables and a sample inventory
 ## Usage
 If using within a role use the post_config.yaml script to run the required playbooks sequentially...
 
-'''
+```
 ---
 - name: Post-Install Config
   hosts: all
@@ -34,6 +34,6 @@ If using within a role use the post_config.yaml script to run the required playb
    - ufw
    - chronyd
    - tenable
-'''
+```
 
 `ansible-playbook -i <inventory_file> post_config.yaml`
