@@ -17,8 +17,23 @@ Each playbook is modular and comes with default variables and a sample inventory
 - SSH access and sudo privileges
 
 ## Getting Started
-1. Update your inventory
-2. Adjust variables in `group_vars/all.yml`
-3. Run your playbook:  
-   ```bash
-   ansible-playbook -i inventory playbooks/join_domain.yml
+1. Create/update your inventory file
+2. Adjust variables in `group_vars/.yml`
+
+## Usage
+If using within a role use the post_config.yaml script to run the required playbooks sequentially...
+
+'''
+---
+- name: Post-Install Config
+  hosts: all
+  become: yes
+  roles:
+   - sudoers
+   - cis_hardening
+   - ufw
+   - chronyd
+   - tenable
+'''
+
+`ansible-playbook -i <inventory_file> post_config.yaml`
