@@ -35,10 +35,11 @@ If using within a role use the post_config.yaml script to run the required playb
    - chronyd
    - tenable
 ```
-
-`ansible-playbook -i <inventory_file> post_config.yaml`
+```
+ansible-playbook -i <inventory_file> post_config.yaml
 OR
-`ansible-playbook -i <inventory_file> user_accounts.yaml`
+ansible-playbook -i <inventory_file> user_accounts.yaml
+```
 
 ansible.arsenal
 DevOps Engineer | YAML Tamer | Terminal Evangelist
