@@ -40,3 +40,5 @@ If using within a role use the post_config.yaml script to run the required playb
 OR
 `ansible-playbook -i <inventory_file> user_accounts.yaml`
 
+ansible.arsenal
+DevOps Engineer | YAML Tamer | Terminal Evangelist
