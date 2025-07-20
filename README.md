@@ -7,7 +7,7 @@ Each playbook is modular and comes with default variables and a sample inventory
 ## What's Included
 - Ansible install script (bash script)
 - Join Ubuntu to Active Directory
-- Install CrowdStrike Falcon Sensor
+- Install CrowdStrike/Tenable
 - Create local or domain-bound users (conditionally)
 - Secure your server (UFW, CIS)
   
@@ -18,7 +18,7 @@ Each playbook is modular and comes with default variables and a sample inventory
 
 ## Getting Started
 1. Create/update your inventory file
-2. Adjust variables in `group_vars/.yml`
+2. Adjust variables in `group_vars/<filename>.yml`
 
 ## Usage
 If using within a role use the post_config.yaml script to run the required playbooks sequentially...
@@ -37,3 +37,6 @@ If using within a role use the post_config.yaml script to run the required playb
 ```
 
 `ansible-playbook -i <inventory_file> post_config.yaml`
+OR
+`ansible-playbook -i <inventory_file> user_accounts.yaml`
+
