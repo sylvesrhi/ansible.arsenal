@@ -42,4 +42,5 @@ ansible-playbook -i <inventory_file> user_accounts.yaml
 ```
 
 ansible.arsenal
+
 DevOps Engineer | YAML Tamer | Terminal Evangelist
