@@ -1,8 +1,3 @@
-
-### Using the Role in a Playbook
-
-### You can now use the `chrony` role in your playbook as follows:
-
 ---
 - name: Post-Install Config
   hosts: all
@@ -16,3 +11,4 @@
     - chronyd
     - sssd
     - cis_hardening
+
