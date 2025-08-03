@@ -21,7 +21,7 @@
           #update_cache: yes
 
     - name: Join to the domain
-      shell: echo "{{ join_password }}" | realm join -U richard.sylvester.x --computer-ou "OU=DevOps,OU=Servers,OU=LHR1,OU=UK,DC=chelton,DC=net" chelton.net
+      shell: echo "{{ join_password }}" | realm join -U <username> --computer-ou "OU=Servers,OU=UK,DC=example,DC=net" example.net
 
     - name: Copy sssd.conf
       copy:
@@ -37,4 +37,5 @@
       service:
         name: sssd
         state: restarted
+
 
