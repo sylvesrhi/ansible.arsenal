@@ -1,5 +1,6 @@
 ---
 # vars file for crowdstrike
-crowdstrike_pkg: "falcon-sensor_7.18.0-17106_amd64.deb"
+crowdstrike_pkg: "<package_name>"
 crowdstrike_cid: <key>
+
 
