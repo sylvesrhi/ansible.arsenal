@@ -1,0 +1,26 @@
+
+### Using the Role in a Playbook
+
+### You can now use the `chrony` role in your playbook as follows:
+
+---
+- name: Post-Install Config
+  hosts: all
+  become: yes
+  ignore_errors: yes
+  vars_files:
+    - roles/sssd/vars/sssd.yaml
+  roles:
+    - tenable
+    - crowdstrike
+    - sumo_logic
+    - chronyd
+    - timezone
+    - sudoers
+    - ufw
+    - snap
+    - sssd
+    - cis_hardening
+    - patching
+    #- cis_hardening_18_04
+    #- crowdstrike_v18
