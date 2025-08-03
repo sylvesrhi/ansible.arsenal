@@ -1,0 +1,14 @@
+---
+# tasks file for user_accounts
+- name: Add users to the system
+  user:
+    name: "{{ item.username }}"
+    comment: "{{ item.name }}"
+    createhome: yes
+    shell: /bin/bash
+    password: "{{ default_password }}"  # Lock password, users will set it on first login
+  loop: "{{ users }}"
+    
+- name: Force password change on first login
+  command: "chage -d 0 {{ item.username }}"
+  loop: "{{ users }}"

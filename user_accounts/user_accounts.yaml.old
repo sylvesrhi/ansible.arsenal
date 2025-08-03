@@ -1,0 +1,29 @@
+---
+# tasks file for user_accounts
+- hosts: all
+  become: yes
+  vars:
+    default_password: "$6$2CMocZjYa6RzaqJ7$/gSfY7VLvs7rmZro.2s9mI6ZEcvTSVH02skPmEKC/0tn56OeuOyVGFLv52wETvvPhE2ubgkl5EIr7k6rzS/HW."
+
+  tasks:
+    - name: Ensure primary and supplementary groups exist
+      group:
+        name: "{{ item }}"
+        state: present
+      loop: "{{ (groups | default([])) + (users | map(attribute='primary_group') | list | unique) }}"
+      when: groups is defined or users is defined
+
+    - name: Add users to the system
+      user:
+        name: "{{ item.username }}"
+        comment: "{{ item.name }}"
+        createhome: yes
+        shell: /bin/bash
+        password: "{{ default_password }}"
+        groups: "{{ item.groups | default([]) | join(',') }}"
+        gid: "{{ item.primary_group }}"
+      loop: "{{ users }}"
+
+    - name: Force password change on first login
+      command: "chage -d 0 {{ item.username }}"
+      loop: "{{ users }}"

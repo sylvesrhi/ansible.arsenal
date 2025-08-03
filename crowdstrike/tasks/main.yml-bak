@@ -1,0 +1,57 @@
+---
+# tasks file for crowdstrike
+#- name: Update apt cache
+#  apt:
+#    update_cache: yes
+
+
+- name: Install pip and virtualenv
+  package:
+    name: 
+      - python3-pip
+      - python3-virtualenv
+
+- name: Install Crowdstrikes falconpy module
+  pip:
+    name: crowdstrike-falconpy 
+    virtualenv: ~/venvs/crowdstrike-env
+    virtualenv_python: python3
+
+- name: Download the Falcon Sensor Installer
+  vars:
+    ansible_python_interpreter: "~/venvs/crowdstrike-env/bin/python3"
+  crowdstrike.falcon.sensor_download:
+    hash: "{{ crowdstrike_hash }}"
+    client_id: "{{ crowdstrike_client_id }}"
+    client_secret: "{{ crowdstrike_secret }}" 
+    cloud: "{{ crowdstrike_cloud }}"
+    dest: "~/"
+    name: falcon-sensor.deb
+  register: falcon_pkg
+  retries: 5
+  delay: 10
+
+- name: Install the Falcon Sensor
+  shell: apt-get install ~/{{ falcon_pkg.path }}
+
+- name: Set Crowdstrike CID
+  command: /opt/CrowdStrike/falconctl -s --cid={{ crowdstrike_cid }} -f
+
+- name: Ensure falcon-sensor service is started and enabled
+  service:
+    name: falcon-sensor
+    state: started
+    enabled: yes
+
+- name: Tidy Up - Remove python3-pip package
+  package:
+    name: python3-pip
+    state: absent
+
+- name: Tidy Up - Remove virtual environment and falcon pkg
+  file:
+    path: "{{ item }}"
+    state: absent
+  loop:
+    - ~/venvs
+    - "{{ falcon_pkg.path }}"

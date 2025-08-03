@@ -1,0 +1,5 @@
+users:
+  - username: "<username>"
+    name: "<Comment>"
+    primary_group: "<group_name>"
+    force_pwd_change: true

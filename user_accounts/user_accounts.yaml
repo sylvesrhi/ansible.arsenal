@@ -1,0 +1,37 @@
+---
+# tasks file for user_accounts
+- hosts: all
+  become: yes
+  vars:
+    default_password: "<pwd>"
+  
+  tasks:
+    - name: Ensure primary groups exist
+      group:
+        name: "{{ item }}"
+        state: present
+      loop: "{{ users | map(attribute='primary_group') | list | unique }}"
+      when: users is defined
+
+    - name: Add users and set default password
+      user:
+        name: "{{ item.username }}"
+        comment: "{{ item.name }}"
+        createhome: yes
+        shell: /bin/bash
+        password: "{{ default_password }}"
+        update_password: "on_create"
+        group: "{{ item.primary_group }}"
+      loop: "{{ users }}"
+
+        #- name: Set default password
+        #user:
+        # name: "{{ item.username }}"
+        # password: "{{ default_password }}"
+        # update_password: "on_create"
+        #loop: "{{ users }}"
+
+    - name: Force password change on first login
+      command: "chage -d 0 {{ item.username }}"
+      loop: "{{ users }}"
+      when: item.force_pwd_change | default(false) | bool

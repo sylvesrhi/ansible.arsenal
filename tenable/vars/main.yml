@@ -1,0 +1,6 @@
+---
+# vars file for tenable
+nessus_agent: NessusAgent-10.8.3-ubuntu1604_amd64.deb
+nessus_key: bad8218dc0cfd9e1218b1cee9352ebea2ed5b7417694736bc4ba75047e1b6b5d
+agent_host: fedcloud.tenable.com
+agent_port: 443 

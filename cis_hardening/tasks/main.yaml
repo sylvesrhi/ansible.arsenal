@@ -1,0 +1,19 @@
+# roles/cis_hardening/tasks/main.yml
+
+---
+- name: Delete if already exists
+  command: rm -fv ~/cis_hardening_lvl1.sh
+
+- name: Copy the CIS hardening script to the target machine
+  copy:
+    src: cis_hardening_lvl1.sh
+    dest: ~/cis_hardening_lvl1.sh
+    mode: '0755'
+
+- name: Run the CIS hardening script
+  command: ~/cis_hardening_lvl1.sh
+
+- name: Clean-up after ourself
+  file:
+    path: ~/cis_hardening_lvl1.sh
+    state: absent

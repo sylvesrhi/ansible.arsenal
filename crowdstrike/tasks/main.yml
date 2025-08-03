@@ -1,0 +1,24 @@
+---
+# tasks file for crowdstrike
+- name: Copy Falcon Sensor Installer
+  copy:
+    src: "{{ crowdstrike_pkg }}"
+    dest: "~/"
+
+- name: Install the Falcon Sensor
+  shell: apt-get install ~/{{ crowdstrike_pkg }}
+
+- name: Set Crowdstrike CID
+  command: /opt/CrowdStrike/falconctl -s --cid={{ crowdstrike_cid }} -f
+
+- name: Ensure falcon-sensor service is started and enabled
+  service:
+    name: falcon-sensor
+    state: started
+    enabled: yes
+
+- name: Tidy Up
+  file:
+    path: ~/{{ crowdstrike_pkg }}
+    state: absent
+

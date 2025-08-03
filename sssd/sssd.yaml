@@ -1,0 +1,40 @@
+---
+# tasks file for sssd_config
+# Install necessary packages
+
+- name: Install SSSD
+  hosts: all
+  become: yes
+  ignore_errors: yes
+  vars_files:
+    - sssd.yaml
+
+  tasks:
+    - name: Install required sssd packages
+      package:
+        name:
+          - sssd-ad
+          - sssd-tools
+          - realmd
+          - adcli
+        state: present
+          #update_cache: yes
+
+    - name: Join to the domain
+      shell: echo "{{ join_password }}" | realm join -U richard.sylvester.x --computer-ou "OU=DevOps,OU=Servers,OU=LHR1,OU=UK,DC=chelton,DC=net" chelton.net
+
+    - name: Copy sssd.conf
+      copy:
+        src:
+          sssd.conf
+        dest:
+          /etc/sssd/sssd.conf
+
+    - name: Enable automatic home dir creation
+      shell: pam-auth-update --enable mkhomedir --force
+
+    - name: Restart sssd service
+      service:
+        name: sssd
+        state: restarted
+

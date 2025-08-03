@@ -1,0 +1,28 @@
+---
+# tasks file for tenable
+- name: Copy Nessus Agent Install
+  copy:
+    src: "{{ nessus_agent }}"
+    dest: "~/"
+
+- name: Install Nessus Agent
+  package:
+    apt: "~/{{ nessus_agent }}"
+    state: present
+
+- name: Link Nessus Agent to Tenable
+  command: /opt/nessus_agent/sbin/nessuscli agent link --host={{ agent_host }} --port={{ agent_port }} --key={{ nessus_key }}
+
+- name : Start Nessus Agent
+  service:
+    name: nessusagent
+    state: started
+    enabled: yes
+
+- name: Check Link Status
+  command: /opt/nessus_agent/sbin/nessuscli agent status
+  register: nessus_link_status
+
+- name: Show Link Status
+  debug:
+    msg: "{{ nessus_link_status.stdout_lines }}" 
