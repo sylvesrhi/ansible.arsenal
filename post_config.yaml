@@ -13,14 +13,6 @@
   roles:
     - tenable
     - crowdstrike
-    - sumo_logic
     - chronyd
-    - timezone
-    - sudoers
-    - ufw
-    - snap
     - sssd
     - cis_hardening
-    - patching
-    #- cis_hardening_18_04
-    #- crowdstrike_v18
