@@ -1,8 +1,5 @@
 ---
 # vars file for crowdstrike
-#crowdstrike_hash: "11413bb6dbd6ea0e143d21d4b5133d5204af54cfa55b7a6603b39856c52ed0ce"
-#crowdstrike_client_id: "ecc25b5e87f54798840f3479a26615a1"
-#crowdstrike_secret: "ihusLZDwHcGX2OagY608NodzFjbR5M3Q9lW1E4U7"
-#crowdstrike_cloud: "us-gov-1"
 crowdstrike_pkg: "falcon-sensor_7.18.0-17106_amd64.deb"
 crowdstrike_cid: <key>
+
