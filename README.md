@@ -1,46 +1,41 @@
-# Ansible Playbook Pack (v1)
+# Ansible Arsenal — Real-World Linux Automation
 
-Welcome to the Ansible Arsenal. This pack includes ready-to-use, real-world playbooks for Linux DevOps automation.
+Automate the build, configuration, and security hardening of Ubuntu servers using modular, production-ready Ansible playbooks.
 
-Each playbook is modular and comes with default variables and a sample inventory to get you started.
+This collection is designed for real-life environments — from enterprise IT to homelab clusters — and showcases my approach to scalable automation, compliance, and DevOps consistency.
 
-## What's Included
-- Ansible install script (bash script)
-- Join Ubuntu to Active Directory
-- Install CrowdStrike/Tenable
-- Create local or domain-bound users (conditionally)
-- Secure your server (UFW, CIS)
-  
-## Requirements
-- Ansible 2.9+
-- Ubuntu 22.04 - 24.04 servers
-- SSH access and sudo privileges
+## ✅ What This Repository Delivers
 
-## Getting Started
-1. Create/update your inventory file
-2. Adjust variables in `group_vars/<filename>.yml`
+These playbooks automate common but time-consuming infrastructure tasks:
 
-## Usage
-If using within a role use the post_config.yaml script to run the required playbooks sequentially...
+## 🔐 Security & Compliance
 
-```
----
-- name: Post-Install Config
-  hosts: all
-  become: yes
-  roles:
-   - sudoers
-   - cis_hardening
-   - ufw
-   - chronyd
-   - tenable
-```
-```
-ansible-playbook -i <inventory_file> post_config.yaml
-OR
-ansible-playbook -i <inventory_file> user_accounts.yaml
-```
+CIS benchmark hardening
 
-ansible.arsenal
+SSH lockdown and kernel tuning
 
-DevOps Engineer | YAML Tamer | Terminal Evangelist
+UFW firewall baseline
+
+Security agent installs (CrowdStrike, Tenable)
+
+## 🏢 Identity & Access
+
+Join Ubuntu machines to Active Directory
+
+Configure SSSD for domain auth
+
+Create and manage local or domain users
+
+SSH key configuration
+
+## ⚙️ System Configuration
+
+Chrony/NTP setup
+
+Package installation and updates
+
+Hostname, DNS, and environment prep
+
+## 🧩 Orchestration
+
+Modular roles can be run individually or chained together using the included post_config.yaml orchestration playbook.
